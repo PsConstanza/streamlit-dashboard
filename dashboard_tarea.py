@@ -5,7 +5,7 @@ import pandas as pd
 import plotly.express as px
 
 
-
+# 1......
 # Título y descripción
 st.title("📊 Dashboard Interactivo de Ventas")
 st.markdown("""
@@ -150,3 +150,56 @@ Gracias a la interactividad del dashboard, el usuario puede explorar distintos p
 patrones temporales en las ventas, tales como horas de mayor actividad, días más rentables, y distribución 
 de transacciones. Esta visualización mejora la toma de decisiones operativas y comerciales.
 """)
+
+# Gráfico 5
+
+# Título
+st.subheader("📈 Relación entre Costos y Ganancia Bruta")
+
+# Gráfico de dispersión
+fig_scatter = px.scatter(
+    df,
+    x='cogs',
+    y='gross income',
+    trendline='ols',  # línea de regresión
+    title='Relación entre Costo de Bienes Vendidos y Ganancia Bruta',
+    labels={'cogs': 'Costo de Bienes Vendidos', 'gross income': 'Ganancia Bruta'},
+    opacity=0.6,
+    color_discrete_sequence=['darkorange']
+)
+
+fig_scatter.update_layout(template='plotly_white', title_x=0.5)
+
+st.plotly_chart(fig_scatter, use_container_width=True)
+st.markdown("---")
+
+
+# Gráfico 6 
+# Contar frecuencia de métodos de pago
+payment_counts = df['Payment'].value_counts().reset_index()
+payment_counts.columns = ['Método de Pago', 'Frecuencia']
+
+# Título
+st.subheader("💳 Frecuencia de Métodos de Pago")
+
+# Gráfico
+fig_bar = px.bar(
+    payment_counts,
+    x='Método de Pago',
+    y='Frecuencia',
+    text='Frecuencia',
+    color='Método de Pago',
+    title='Frecuencia de Métodos de Pago',
+    labels={'Frecuencia': 'Cantidad de Transacciones'}
+)
+
+fig_bar.update_traces(textposition='outside')
+fig_bar.update_layout(template='plotly_white', title_x=0.5)
+
+st.plotly_chart(fig_bar, use_container_width=True)
+st.markdown("---")
+
+
+# Contar frecuencia de métodos de pago
+
+
