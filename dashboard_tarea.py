@@ -169,7 +169,7 @@ fig_scatter = px.scatter(
 )
 
 
-fig_scatter.update_layout(template='plotly_white', title_x=0.5)
+fig_scatter.update_layout(template='plotly_white', title_x=0)
 
 st.plotly_chart(fig_scatter, use_container_width=True)
 st.markdown("---")
@@ -195,7 +195,7 @@ fig_bar = px.bar(
 )
 
 fig_bar.update_traces(textposition='outside')
-fig_bar.update_layout(template='plotly_white', title_x=0.5)
+fig_bar.update_layout(template='plotly_white', title_x=0)
 
 st.plotly_chart(fig_bar, use_container_width=True)
 st.markdown("---")
