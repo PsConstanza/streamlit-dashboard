@@ -154,14 +154,14 @@ de transacciones. Esta visualización mejora la toma de decisiones operativas y 
 # Gráfico 5
 
 # Título
-st.subheader("📈 Relación entre Costos y Ingreso Bruto")
+st.subheader("📈 Relación entre Costos e Ingreso Bruto")
 
 # Gráfico de dispersión
 fig_scatter = px.scatter(
     df,
     x='cogs',
     y='gross income',
-    title='Relación entre Costo de Bienes Vendidos y Ingreso Bruto',
+    title='Relación entre Costo de Bienes Vendidos e Ingreso Bruto',
     labels={'cogs': 'Costo de Bienes Vendidos', 'gross income': 'Ingreso Bruto'},
     opacity=0.6,
     color_discrete_sequence=['darkorange']
