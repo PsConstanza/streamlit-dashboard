@@ -286,7 +286,7 @@ st.markdown("---")
 
 ### Gráfico 3D
 
-st.subheader("📅 Ingreso diario por Línea de Producto")
+st.subheader("🧾 Ingreso diario por Línea de Producto")
 
 # Agrupar por Fecha y Línea de Producto
 data_agrupada = df_filtrado.groupby(['Date', 'Product line']).agg({
