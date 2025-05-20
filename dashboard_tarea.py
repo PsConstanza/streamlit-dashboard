@@ -326,7 +326,8 @@ st.plotly_chart(fig_gapminder_pl, use_container_width=True)
 st.markdown("---")
 
 ### Gráfico 3D
-
+# Título
+st.subheader("💵 Ingreso diario (USD) por Sucursal")
 
 # Agrupar por Fecha y Sucursal
 data_agrupada = df_filtrado.groupby(['Date', 'Branch']).agg({
@@ -345,7 +346,7 @@ fig_gapminder_br = px.scatter_3d(
     size='ventas',
     color='ventas',
     hover_data=['ventas', 'gross income'],
-    title='Ingreso bruto diario por sucursal (estilo Gapminder 3D)',
+    title='Ingreso bruto diario por sucursal',
     labels={
         'gross income': 'Ingreso Bruto',
         'ventas': 'Ventas',
