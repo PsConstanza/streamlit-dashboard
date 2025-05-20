@@ -3,6 +3,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import math
 
 
 # 1......
@@ -200,6 +201,85 @@ st.plotly_chart(fig_bar, use_container_width=True)
 st.markdown("---")
 
 
-# Contar frecuencia de métodos de pago
+# Gráficos de burbuja 3D - Ingresos diarios por línea de producto
+# Título
+st.subheader("💰 Ingreso diario (USD) por Línea de Producto")
 
+# Agrupar por fecha y línea de producto
+data_agrupada = df.groupby(['Date', 'Product line']).agg({
+    'Total': 'sum',
+    'Quantity': 'sum'
+}).reset_index()
+
+# Renombrar lineas de productos
+renombres = {
+    "Electronic accessories": "Accesorios Electrónicos",
+    "Fashion accessories": "Accesorios de Moda",
+    "Food and beverages": "Comida y Bebidas",
+    "Health and beauty": "Salud y Belleza",
+    "Home and lifestyle": "Hogar y Estilo de Vida",
+    "Sports and travel": "Deportes y Viajes"
+}
+data_agrupada['Product line'] = data_agrupada['Product line'].replace(renombres)
+
+# Gráfico de burbujas 3d
+fig_bubble_pl = px.scatter(
+    data_agrupada,
+    x="Date",
+    y="Total",
+    size="Quantity",
+    color="Product line",
+    hover_name="Product line",
+    size_max=60,
+    title="Ingreso Diario (USD) por Línea de Producto",
+    labels={
+        "gross income": "Ingreso Bruto (USD)",
+        "Product line": "Línea de Producto",
+        "Quantity": "Cantidad Vendida",
+        "Date": "Fecha",
+        "Total": "Total de Ingresos"
+    }
+)
+
+fig_bubble_pl.update_layout(template='plotly_white', title_x=0)
+st.plotly_chart(fig_bubble_pl, use_container_width=True)
+
+st.markdown("---")
+
+
+# Gráfico de burbujas 3D  - Ingresos diarios (USD) por sucursal
+
+# Título
+st.subheader("💵 Ingreso diario (USD) por Sucursal")
+
+# Agrupar por fecha y sucursal
+data_agrupada = df.groupby(['Date', 'Branch']).agg({
+    'Total': 'sum',
+    'Quantity': 'sum'
+}).reset_index()
+
+# Gráfico de burbujas 3d
+fig_bubble = px.scatter(
+    data_agrupada,
+    x="Date",
+    y="Total",
+    size="Quantity",
+    color="Branch",
+    hover_name="Branch",
+    size_max=60,
+    title="Ingreso diario (USD) por sucursal",
+    labels={
+        "Branch": "Sucursal",
+        "gross income": "Ingreso Bruto (USD)",
+        "Quantity": "Cantidad Vendida",
+        "Date": "Fecha",
+        "Total": "Total de Ingresos (USD)"
+    }
+)
+
+
+fig_bubble.update_layout(template='plotly_white', title_x=0)
+st.plotly_chart(fig_bubble, use_container_width=True)
+
+st.markdown("---")
 
