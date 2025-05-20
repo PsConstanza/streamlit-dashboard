@@ -206,7 +206,7 @@ st.markdown("---")
 st.subheader("💰 Ingreso diario (USD) por Línea de Producto")
 
 # Agrupar por fecha y línea de producto
-data_agrupada = df.groupby(['Date', 'Product line']).agg({
+data_agrupada = df_filtrado.groupby(['Date', 'Product line']).agg({
     'Total': 'sum',
     'Quantity': 'sum'
 }).reset_index()
@@ -253,7 +253,7 @@ st.markdown("---")
 st.subheader("💵 Ingreso diario (USD) por Sucursal")
 
 # Agrupar por fecha y sucursal
-data_agrupada = df.groupby(['Date', 'Branch']).agg({
+data_agrupada = df_filtrado.groupby(['Date', 'Branch']).agg({
     'Total': 'sum',
     'Quantity': 'sum'
 }).reset_index()
@@ -282,4 +282,5 @@ fig_bubble.update_layout(template='plotly_white', title_x=0)
 st.plotly_chart(fig_bubble, use_container_width=True)
 
 st.markdown("---")
+
 
