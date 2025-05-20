@@ -201,7 +201,7 @@ st.plotly_chart(fig_bar, use_container_width=True)
 st.markdown("---")
 
 
-# Gráficos de burbuja 3D - Ingresos diarios por línea de producto
+# Gráficos de burbuja - Ingresos diarios por línea de producto
 # Título
 st.subheader("💰 Ingreso diario (USD) por Línea de Producto")
 
@@ -222,7 +222,7 @@ renombres = {
 }
 data_agrupada['Product line'] = data_agrupada['Product line'].replace(renombres)
 
-# Gráfico de burbujas 3d
+# Gráfico de burbujas
 fig_bubble_pl = px.scatter(
     data_agrupada,
     x="Date",
@@ -247,7 +247,7 @@ st.plotly_chart(fig_bubble_pl, use_container_width=True)
 st.markdown("---")
 
 
-# Gráfico de burbujas 3D  - Ingresos diarios (USD) por sucursal
+# Gráfico de burbujas  - Ingresos diarios (USD) por sucursal
 
 # Título
 st.subheader("💵 Ingreso diario (USD) por Sucursal")
@@ -258,7 +258,7 @@ data_agrupada = df_filtrado.groupby(['Date', 'Branch']).agg({
     'Quantity': 'sum'
 }).reset_index()
 
-# Gráfico de burbujas 3d
+# Gráfico de burbujas
 fig_bubble = px.scatter(
     data_agrupada,
     x="Date",
@@ -284,3 +284,83 @@ st.plotly_chart(fig_bubble, use_container_width=True)
 st.markdown("---")
 
 
+### Gráfico 3D
+
+st.subheader("📅 Ingreso diario por Línea de Producto")
+
+# Agrupar por Fecha y Línea de Producto
+data_agrupada = df_filtrado.groupby(['Date', 'Product line']).agg({
+    'gross income': 'sum',
+    'Invoice ID': 'count'
+}).reset_index()
+
+data_agrupada.rename(columns={'Invoice ID': 'ventas'}, inplace=True)
+
+# Crear gráfico 3D por Línea de Producto
+fig_gapminder_pl = px.scatter_3d(
+    data_agrupada,
+    x='Date',
+    y='Product line',
+    z='gross income',
+    size='ventas',
+    color='ventas',
+    hover_data=['ventas', 'gross income'],
+    title='Ingreso bruto diario por línea de produco',
+    labels={
+        'gross income': 'Ingreso Bruto',
+        'ventas': 'Ventas',
+        'Date': 'Fecha',
+        'Product line': 'Línea de Producto'
+    }
+)
+
+# Ajustar tamaño
+fig_gapminder_pl.update_layout(
+    template='plotly_white', 
+    title_x=0,
+    width=1200,
+    height=800
+)
+
+st.plotly_chart(fig_gapminder_pl, use_container_width=True)
+st.markdown("---")
+
+### Gráfico 3D
+
+
+# Agrupar por Fecha y Sucursal
+data_agrupada = df_filtrado.groupby(['Date', 'Branch']).agg({
+    'gross income': 'sum',
+    'Invoice ID': 'count'
+}).reset_index()
+
+data_agrupada.rename(columns={'Invoice ID': 'ventas'}, inplace=True)
+
+# Crear gráfico 3D tipo Gapminder
+fig_gapminder_br = px.scatter_3d(
+    data_agrupada,
+    x='Date',
+    y='Branch',
+    z='gross income',
+    size='ventas',
+    color='ventas',
+    hover_data=['ventas', 'gross income'],
+    title='Ingreso bruto diario por sucursal (estilo Gapminder 3D)',
+    labels={
+        'gross income': 'Ingreso Bruto',
+        'ventas': 'Ventas',
+        'Date': 'Fecha',
+        'Branch': 'Sucursal'
+    }
+)
+
+# Ajuste de tamaño
+fig_gapminder_br.update_layout(
+    template='plotly_white',
+    title_x=0,
+    width=1200,
+    height=800
+)
+
+st.plotly_chart(fig_gapminder_br, use_container_width=True)
+st.markdown("---")
